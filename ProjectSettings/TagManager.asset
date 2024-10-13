@@ -46,6 +46,12 @@ TagManager:
   - name: Background
     uniqueID: 937390971
     locked: 0
+  - name: "Cen\xE1rio"
+    uniqueID: 2897856177
+    locked: 0
   - name: Inimigos
     uniqueID: 2916912635
+    locked: 0
+  - name: Interface
+    uniqueID: 196791841
     locked: 0

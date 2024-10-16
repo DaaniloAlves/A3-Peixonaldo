@@ -38,7 +38,7 @@ public class GaviotaController : MonoBehaviour
     }
     void controlarHP()
     {
-        if (HP > 0)
+        if (HP <= 0)
         {
             Destroy(gameObject);
         }

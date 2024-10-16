@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Buraco
   - Plataforma
+  - "Ch\xE3o"
+  - "\xC1gua"
+  - PowerUp
   layers:
   - Default
   - TransparentFX
@@ -54,4 +57,7 @@ TagManager:
     locked: 0
   - name: Interface
     uniqueID: 196791841
+    locked: 0
+  - name: Player
+    uniqueID: 744513061
     locked: 0

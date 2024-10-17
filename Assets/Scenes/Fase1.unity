@@ -536,7 +536,7 @@ GameObject:
   - component: {fileID: 361087243}
   m_Layer: 0
   m_Name: Tilemap
-  m_TagString: Untagged
+  m_TagString: "Ch\xE3o"
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2320,6 +2320,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gaviota
       objectReference: {fileID: 0}
+    - target: {fileID: 6236211179667387887, guid: 3a11fc58c1612b34e92668c21b43461c, type: 3}
+      propertyPath: ataque
+      value: 
+      objectReference: {fileID: 3617465334880961607, guid: 0e5faa47ade0cda4394442c66c8bf7ae, type: 3}
+    - target: {fileID: 6236211179667387887, guid: 3a11fc58c1612b34e92668c21b43461c, type: 3}
+      propertyPath: camera
+      value: 
+      objectReference: {fileID: 164811629}
     - target: {fileID: 6596302965832704999, guid: 3a11fc58c1612b34e92668c21b43461c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.76

@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
 	private float velocidadeMovimento = 5f;
 	private float forçaDoPulo = 5f;
 	private float velocidadeNado = 3f;
+	[SerializeField] int score = 0;
 
 	private Rigidbody2D rb;
 	//private Animator animator;
@@ -59,6 +60,11 @@ public class PlayerMovement : MonoBehaviour
 		{
 			rb.MovePosition(rb.position + move * velocidadeMovimento * Time.fixedDeltaTime);
 		}
+	}
+
+	public int getScore()
+	{
+		return this.score;
 	}
 
 	private void OnCollisionEnter2D(Collision2D collision)

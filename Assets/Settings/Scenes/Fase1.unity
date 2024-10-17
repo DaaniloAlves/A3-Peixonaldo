@@ -1442,6 +1442,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 905277974}
+  - component: {fileID: 905277975}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -1464,6 +1465,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &905277975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 905277973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ed18a5e23131644682ef65f3d5f3796, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camera: {fileID: 164811629}
+  txtScore: {fileID: 106869115}
 --- !u!1 &926295976
 GameObject:
   m_ObjectHideFlags: 0
@@ -1853,6 +1868,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 953b5324d0a95fd488c94f737c9a6943, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  score: 0
 --- !u!1 &1591455101
 GameObject:
   m_ObjectHideFlags: 0
@@ -2305,7 +2321,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6596302965832704999, guid: 3a11fc58c1612b34e92668c21b43461c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.22
+      value: 7.76
       objectReference: {fileID: 0}
     - target: {fileID: 6596302965832704999, guid: 3a11fc58c1612b34e92668c21b43461c, type: 3}
       propertyPath: m_LocalPosition.y

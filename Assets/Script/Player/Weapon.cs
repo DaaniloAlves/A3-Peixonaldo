@@ -5,9 +5,11 @@ public class Weapon : MonoBehaviour
 	private float dano = 1f;                  // Dano da arma padrão
 	private float raioAtaque = 0.5f;
 	private LayerMask inimigoLayer;
+	[SerializeField] Transform posicaoAtaque;
 
 	public void Atacar(Animator animator)
 	{
+		inimigoLayer = "Inimigo";
 		animator.SetTrigger("Ataque");
 		DetectarInimigos();
 	}
@@ -15,7 +17,7 @@ public class Weapon : MonoBehaviour
 	private void DetectarInimigos()
 	{
 		// Detecta os inimigos na área do ponto de ataque
-		Collider2D[] inimigos = Physics2D.OverlapCircleAll(transform.position, raioAtaque, inimigoLayer);
+		Collider2D[] inimigos = Physics2D.OverlapCircleAll(posicaoAtaque, raioAtaque, inimigoLayer);
 
 		// Aplica dano pra cada inimigo na área
 		foreach (Collider2D inimigo in inimigos)

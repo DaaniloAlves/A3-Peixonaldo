@@ -11,7 +11,7 @@ public class GaviotaController : Enemy
 	private float controleTempo = 2f; // intervalo entre os ataques
 	private Transform transformAtaque; // Transform que indica onde o ataque deve ser instanciado
 	[SerializeField] private int HP; // vida da gaivota
-	// [SerializeField] private Transform camera; // pegando a camera para definir os limites abaixo
+	[SerializeField] private Transform camera; // pegando a camera para definir os limites abaixo
 	private float limiteEsquerdo;// limite esquerdo da tela, usado para fazer a gaivota não sair nunca da tela
 	private float limiteDireito; // limite direito da tela, usado para fazer a gaivota não sair nunca da tela
 
@@ -21,8 +21,8 @@ public class GaviotaController : Enemy
 		rb = GetComponent<Rigidbody2D>();
 		transformAtaque = transform.Find("Ataque"); // encontrando o transform com o nome ataque
 		HP = 3;
-		//limiteEsquerdo = camera.position.x - (camera.scale / 2);
-		//limiteDireito = camera.position.x + (camera.scale / 2);
+		limiteEsquerdo = camera.position.x - (camera.localScale.x / 2);
+		limiteDireito = camera.position.x + (camera.localScale.x / 2);
 	}
 
 

@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
 	private Weapon weapon;
 
 	private Vector2 move;
-	private bool emSolo;
+	[SerializeField] private bool emSolo;
 	private bool nadando;
 
 	void Start()
@@ -32,7 +32,8 @@ public class PlayerMovement : MonoBehaviour
 
 		if (Input.GetButtonDown("Pulo") && emSolo)
 		{
-			rb.AddForce(Vector2.up * forçaDoPulo, ForceMode2D.Impulse);
+			rb.AddForce(new Vector2(rb.velocity.x, forçaDoPulo));
+			Debug.Log("Ta pulando seu bosta");
 		}
 
 		if (nadando)
@@ -52,20 +53,17 @@ public class PlayerMovement : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		if (nadando)
-		{
-			rb.MovePosition(rb.position + move * velocidadeNado * Time.fixedDeltaTime);
-		}
-		else
-		{
-			rb.MovePosition(rb.position + move * velocidadeMovimento * Time.fixedDeltaTime);
-		}
+		Vector2 targetPosition = rb.position + move *
+			(nadando ? velocidadeNado : velocidadeMovimento) * Time.fixedDeltaTime;
+
+		rb.MovePosition(targetPosition);
 	}
 
 	public int getScore()
 	{
 		return this.score;
 	}
+
 
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
@@ -95,12 +93,26 @@ public class PlayerMovement : MonoBehaviour
 		}
 	}
 
+	// Usando Trigger para garantir que o chão seja detectado corretamente
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
+		if (collision.CompareTag("Chão"))
+		{
+			emSolo = true;
+			Debug.Log("Player no chão");
+		}
+
+		if (collision.CompareTag("Água"))
+		{
+			nadando = true;
+			// animator.SetBool("Nadando", true);
+		}
+
 		if (collision.CompareTag("PowerUp"))
 		{
 			weapon.AtivarPowerUp();
 			Destroy(collision.gameObject);
 		}
 	}
+
 }

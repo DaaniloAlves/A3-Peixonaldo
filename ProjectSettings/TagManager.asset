@@ -9,6 +9,7 @@ TagManager:
   - "Ch\xE3o"
   - "\xC1gua"
   - PowerUp
+  - PontoCamera
   layers:
   - Default
   - TransparentFX

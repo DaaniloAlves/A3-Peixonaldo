@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CocoController : MonoBehaviour
 {
+    private float dano;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +21,11 @@ public class CocoController : MonoBehaviour
 	{
 		if (collision.gameObject.CompareTag("Chão"))
         {
+            Destroy(gameObject);
+        }
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            // player perde hp
             Destroy(gameObject);
         }
 	}

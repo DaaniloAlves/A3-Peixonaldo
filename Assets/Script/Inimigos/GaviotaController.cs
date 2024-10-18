@@ -12,8 +12,9 @@ public class GaviotaController : Enemy
 	private Transform transformAtaque; // Transform que indica onde o ataque deve ser instanciado
 	[SerializeField] private int HP; // vida da gaivota
 	[SerializeField] private Transform camera; // pegando a camera para definir os limites abaixo
-	private float limiteEsquerdo;// limite esquerdo da tela, usado para fazer a gaivota não sair nunca da tela
-	private float limiteDireito; // limite direito da tela, usado para fazer a gaivota não sair nunca da tela
+	[SerializeField] private bool passou = false;
+	//private GameObject limiteEsquerdo;// limite esquerdo da tela, usado para fazer a gaivota não sair nunca da tela
+	//private GameObject limiteDireito; // limite direito da tela, usado para fazer a gaivota não sair nunca da tela
 
 
 	void Start()
@@ -21,15 +22,16 @@ public class GaviotaController : Enemy
 		rb = GetComponent<Rigidbody2D>();
 		transformAtaque = transform.Find("Ataque"); // encontrando o transform com o nome ataque
 		HP = 3;
-		limiteEsquerdo = camera.position.x - (camera.localScale.x / 2);
-		limiteDireito = camera.position.x + (camera.localScale.x / 2);
+		rb.velocity = Vector2.left * 2.5f;
+		//limiteEsquerdo = GameObject.Find("Ponto1");
+		//limiteDireito = GameObject.Find("Ponto2");
 	}
 
 
 	void Update()
 	{
 		atacar();
-		movimentar();
+		
 	}
 
 	// método com lógica que faz a gaivota atacar
@@ -52,15 +54,18 @@ public class GaviotaController : Enemy
 	}
 
 	// método com lógica que faz a gaivota se movimentar
-	void movimentar()
+
+	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		if (transform.position.x < limiteEsquerdo) // se movimentando para a direita se atingir o limite esquerdo
+		if (collision.CompareTag("PontoCamera"))
 		{
-			rb.velocity = Vector2.right * 2.5f;
-		}
-		else if (transformAtaque.position.x > limiteDireito)  // se movimentando para a esquerda se atingir o limite direito
-		{
-			rb.velocity = Vector2.left * 2.5f;
+			if (!passou)
+			{
+				passou = true;
+			} else
+			{
+				rb.velocity *= new Vector2(-1, 0);
+			}
 		}
 	}
 }

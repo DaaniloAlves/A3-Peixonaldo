@@ -13,8 +13,6 @@ public class GaviotaController : Enemy
 	[SerializeField] private int HP; // vida da gaivota
 	[SerializeField] private Transform camera; // pegando a camera para definir os limites abaixo
 	[SerializeField] private bool passou = false;
-	//private GameObject limiteEsquerdo;// limite esquerdo da tela, usado para fazer a gaivota não sair nunca da tela
-	//private GameObject limiteDireito; // limite direito da tela, usado para fazer a gaivota não sair nunca da tela
 
 
 	void Start()
@@ -23,8 +21,6 @@ public class GaviotaController : Enemy
 		transformAtaque = transform.Find("Ataque"); // encontrando o transform com o nome ataque
 		HP = 3;
 		rb.velocity = Vector2.left * 2.5f;
-		//limiteEsquerdo = GameObject.Find("Ponto1");
-		//limiteDireito = GameObject.Find("Ponto2");
 	}
 
 
@@ -64,6 +60,14 @@ public class GaviotaController : Enemy
 				passou = true;
 			} else
 			{
+				SpriteRenderer gaivota = GetComponentInChildren<SpriteRenderer>();
+				if (gaivota.flipX == false)
+				{
+					gaivota.flipX = true;
+				} else
+				{
+					gaivota.flipX = false;
+				}
 				rb.velocity *= new Vector2(-1, 0);
 			}
 		}

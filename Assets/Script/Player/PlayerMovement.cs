@@ -6,24 +6,26 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
 	[Header("Atributos do Player")]
-	public float velocidadeMovimento = 5f; // define a velocidade que o player anda
-	public float forçaDoPulo = 15f; // define a força do pulo do player
-	public int maxHP = 100; // define o HP máximo do player
-	public int hpAtual; // define o HP atual do player
-	public int pontosVidaExtra = 100; // Pontuação necessária para ganhar vida extra
+	[SerializeField] private float velocidadeMovimento = 5f; // define a velocidade que o player anda
+	[SerializeField] private float forçaDoPulo = 15f; // define a força do pulo do player
+	[SerializeField] private int maxHP = 100; // define o HP máximo do player
+	[SerializeField] private int hpAtual; // define o HP atual do player
+	[SerializeField] private int pontosVidaExtra = 100; // Pontuação necessária para ganhar vida extra
+	[SerializeField] private GameObject myCamera;
+	[SerializeField] private GameObject gameOver;
 
-	public Rigidbody2D rb;
+	private Rigidbody2D rb;
 	// public Animator animator;
-	public SpriteRenderer spriteRenderer;
-	public Weapon weapon;
+	private SpriteRenderer spriteRenderer;
+	private Weapon weapon;
 
 	[Header("Configurações do pulo")]
-	public Transform checadorDeChão;
-	public LayerMask camadaChão;
-	private bool emSolo;
-	public float raioChecador = 0.2f;  // Aumentar o raio para detectar o chão 
+	private Transform checadorDeChão;
+	private LayerMask camadaChão;
+	[SerializeField] private bool emSolo;
+	private float raioChecador = 0.2f;  // Aumentar o raio para detectar o chão 
 
-	private int pontosAcumulados = 0;
+	[SerializeField] private int pontosAcumulados = 0;
 
 	private void Start()
 	{
@@ -32,6 +34,7 @@ public class Player : MonoBehaviour
 		spriteRenderer = GetComponent<SpriteRenderer>();
 		weapon = GetComponentInChildren<Weapon>();
 		hpAtual = maxHP;
+		myCamera = GameObject.Find("Main Camera");
 	}
 
 	private void Update()
@@ -44,7 +47,6 @@ public class Player : MonoBehaviour
 		// animator.SetFloat("Velocidade", Mathf.Abs(movimento));
 
 		// Log para ver se o emSolo está sendo detectado corretamente
-		Debug.Log("Em Solo: " + emSolo);
 
 		if (Input.GetButtonDown("Jump") && emSolo)
 		{
@@ -84,8 +86,11 @@ public class Player : MonoBehaviour
 		// animator.SetTrigger("Morrer");
 		rb.velocity = Vector2.zero;
 
+		// criando gameover ao morrer
+		Instantiate(gameOver, new Vector3(myCamera.transform.position.x, myCamera.transform.position.y, 0), Quaternion.identity);
+
 		// Reinicia a cena atual
-		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+		// SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 	}
 
 	public void ColetarPonto(int pontos)
@@ -114,6 +119,11 @@ public class Player : MonoBehaviour
 		spriteRenderer.color = Color.red;
 		yield return new WaitForSeconds(0.1f);
 		spriteRenderer.color = Color.white;
+	}
+
+	public float getPontos()
+	{
+		return pontosAcumulados;
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision)
@@ -147,6 +157,10 @@ public class Player : MonoBehaviour
 		if (collision.gameObject.layer == LayerMask.NameToLayer("Chão"))
 		{
 			emSolo = true;
+		}
+		if (collision.gameObject.CompareTag("Espinho"))
+		{
+			TomarDano(1);
 		}
 	}
 

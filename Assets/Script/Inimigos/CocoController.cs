@@ -24,9 +24,9 @@ public class CocoController : MonoBehaviour
 	{
         if (collision.gameObject.CompareTag("Player"))
         {
-            // player perde hp
-            Destroy(gameObject);
-        }
+            GameObject.Find("Player").GetComponent<Player>().TomarDano(20);
+		}
+		Destroy(gameObject);
 	}
 
     public void ativarGravidade()

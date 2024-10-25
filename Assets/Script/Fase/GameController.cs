@@ -15,6 +15,7 @@ public class GameController : MonoBehaviour
 
 	void Start()
 	{
+
 		Instantiate(gaivota, new Vector3(10, 4, 0), Quaternion.identity);
 		player = FindObjectOfType<Player>(); // achando o gameobject do player assim que começa a rodar
 	}
@@ -22,17 +23,16 @@ public class GameController : MonoBehaviour
 
 	void Update()
 	{
-		myCamera.position = new Vector3(player.transform.position.x, 0, -10); // fazendo a camera seguir o player, passando o transform.position
-		// txtScore.text = player.getScore().ToString(); // atualizando a interface da pontuaçao
+		if (player.transform.position.x < -12.9)
+		{
+			myCamera.position = new Vector3(-12.9f, 0, -10);
+		} else if (player.transform.position.x > 56)
+		{
+			myCamera.position = new Vector3(56, 0, -10);
+		} else
+		{
+			myCamera.position = new Vector3(player.transform.position.x, 0, -10); // fazendo a camera seguir o player, passando o transform.position
+		}
+		 txtScore.text = player.getPontos().ToString(); // atualizando a interface da pontuaçao
 	}
-
-	// metodo terá que ser chamado quando o player perder ou ganhar vida
-	//void controlarHearts()
-	//{
-	//    int playerHP = player.getHP();
-	//    for (var heart in playerHP)
-	//    {
-	//        Instantiate()
-	//    }
-	//}
 }

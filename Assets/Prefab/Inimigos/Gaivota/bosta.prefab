@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8036811665051440670}
   - component: {fileID: -681979791380051272}
   - component: {fileID: 1769479246146214595}
+  - component: {fileID: 3602017311620909589}
   m_Layer: 0
   m_Name: bosta
   m_TagString: Untagged
@@ -72,8 +73,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1378054661
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: fddd79929af703845b7a1967e4ed40fb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -145,6 +146,18 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.87, y: 1}
+  m_Offset: {x: 0.87, y: 1.27}
   serializedVersion: 2
   m_Radius: 1.5
+--- !u!114 &3602017311620909589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8760794540962329827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37a7e2720e15a254aac70520a6bac48d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

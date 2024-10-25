@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 6596302965832704999}
   - component: {fileID: 6236211179667387887}
   - component: {fileID: 4776831351188447704}
+  - component: {fileID: 2632705737919886677}
   m_Layer: 0
   m_Name: Gaviota
   m_TagString: Untagged
@@ -78,7 +79,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e58ef6364d426e8428e0d3f4276ccde2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ataque: {fileID: 8760794540962329827, guid: 75d0cd22ea4b1244193ae5ddc4ec3870, type: 3}
+  vida: 10
+  ataque: {fileID: 3617465334880961607, guid: 0e5faa47ade0cda4394442c66c8bf7ae, type: 3}
+  ataque02: {fileID: 8760794540962329827, guid: 75d0cd22ea4b1244193ae5ddc4ec3870, type: 3}
+  HP: 0
+  camera: {fileID: 0}
 --- !u!50 &4776831351188447704
 Rigidbody2D:
   serializedVersion: 4
@@ -106,6 +111,41 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!58 &2632705737919886677
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3313174421047285638}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1 &4487247395080570066
 GameObject:
   m_ObjectHideFlags: 0
@@ -178,7 +218,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1378054661
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 2a580fe1a3228bf4d8b12e7117af717b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

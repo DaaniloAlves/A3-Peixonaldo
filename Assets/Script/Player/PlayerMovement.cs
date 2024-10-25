@@ -1,118 +1,160 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class PlayerMovement : MonoBehaviour
+public class Player : MonoBehaviour
 {
-	private float velocidadeMovimento = 5f;
-	private float forçaDoPulo = 5f;
-	private float velocidadeNado = 3f;
-	[SerializeField] int score = 0;
+	[Header("Atributos do Player")]
+	public float velocidadeMovimento = 5f; // define a velocidade que o player anda
+	public float forçaDoPulo = 15f; // define a força do pulo do player
+	public int maxHP = 100; // define o HP máximo do player
+	public int hpAtual; // define o HP atual do player
+	public int pontosVidaExtra = 100; // Pontuação necessária para ganhar vida extra
 
-	private Rigidbody2D rb;
-	//private Animator animator;
-	private Weapon weapon;
+	public Rigidbody2D rb;
+	// public Animator animator;
+	public SpriteRenderer spriteRenderer;
+	public Weapon weapon;
 
-	private Vector2 move;
-	[SerializeField] private bool emSolo;
-	private bool nadando;
+	[Header("Configurações do pulo")]
+	public Transform checadorDeChão;
+	public LayerMask camadaChão;
+	private bool emSolo;
+	public float raioChecador = 0.2f;  // Aumentar o raio para detectar o chão 
 
-	void Start()
+	private int pontosAcumulados = 0;
+
+	private void Start()
 	{
 		rb = GetComponent<Rigidbody2D>();
-		//animator = GetComponent<Animator>();
-		weapon = FindObjectOfType<Weapon>();  // A arma é um filho do player
+		// animator = GetComponent<Animator>();
+		spriteRenderer = GetComponent<SpriteRenderer>();
+		weapon = GetComponentInChildren<Weapon>();
+		hpAtual = maxHP;
 	}
 
-	void Update()
+	private void Update()
 	{
-		move.x = Input.GetAxisRaw("Horizontal");
-		//animator.SetFloat("Horizontal", move.x);
-		//animator.SetFloat("Velocidade", move.sqrMagnitude);
+		// Movimento horizontal
+		float movimento = Input.GetAxisRaw("Horizontal");
+		rb.velocity = new Vector2(movimento * velocidadeMovimento, rb.velocity.y);
 
-		if (Input.GetButtonDown("Pulo") && emSolo)
-		{
-			rb.AddForce(new Vector2(rb.velocity.x, forçaDoPulo));
-			Debug.Log("Ta pulando seu bosta");
-		}
+		// Ativa a animação de andar
+		// animator.SetFloat("Velocidade", Mathf.Abs(movimento));
 
-		if (nadando)
+		// Log para ver se o emSolo está sendo detectado corretamente
+		Debug.Log("Em Solo: " + emSolo);
+
+		if (Input.GetButtonDown("Jump") && emSolo)
 		{
-			move.y = Input.GetAxisRaw("Vertical");
-		}
-		else
-		{
-			move.y = 0;
+			Pular();
 		}
 
-		if (Input.GetButtonDown("ataque1"))
+		// Atacar
+		if (Input.GetButtonDown("Ataque"))
 		{
-			//weapon.Atacar(animator);
+			// weapon.Atacar(animator);
 		}
+
+		// Atualiza o valor booleano da animação de solo
+		// animator.SetBool("EmSolo", emSolo);
 	}
 
-	void FixedUpdate()
+	private void Pular()
 	{
-		Vector2 targetPosition = rb.position + move *
-			(nadando ? velocidadeNado : velocidadeMovimento) * Time.fixedDeltaTime;
-
-		rb.MovePosition(targetPosition);
+		// Usando AddForce para pular
+		rb.AddForce(new Vector2(0f, forçaDoPulo), ForceMode2D.Impulse);
+		// animator.SetTrigger("Pular");
 	}
 
-	public int getScore()
+	public void TomarDano(int dano)
 	{
-		return this.score;
+		hpAtual -= dano;
+		StartCoroutine(PiscarVermelho());
+
+		if (hpAtual <= 0)
+		{
+			Morrer();
+		}
 	}
 
+	private void Morrer()
+	{
+		// animator.SetTrigger("Morrer");
+		rb.velocity = Vector2.zero;
 
+		// Reinicia a cena atual
+		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+	}
+
+	public void ColetarPonto(int pontos)
+	{
+		pontosAcumulados += pontos;
+
+		if (pontosAcumulados >= pontosVidaExtra)
+		{
+			GanharVida(1);
+			pontosAcumulados = 0;
+		}
+	}
+
+	private void GanharVida(int quantidade)
+	{
+		hpAtual = Mathf.Min(hpAtual + quantidade, maxHP);
+	}
+
+	public void AtivarPowerUp()
+	{
+		weapon.AtivarPowerUp();
+	}
+
+	private IEnumerator PiscarVermelho()
+	{
+		spriteRenderer.color = Color.red;
+		yield return new WaitForSeconds(0.1f);
+		spriteRenderer.color = Color.white;
+	}
+
+	private void OnTriggerEnter2D(Collider2D collision)
+	{
+		if (collision.gameObject.CompareTag("PowerUp"))
+		{
+			AtivarPowerUp();
+			Destroy(collision.gameObject);
+		}
+
+		if (collision.gameObject.CompareTag("Moeda"))
+		{
+			ColetarPonto(1);
+			Destroy(collision.gameObject);
+		}
+
+		if (collision.gameObject.CompareTag("FimDaFase"))
+		{
+			MudarDeFase();
+		}
+	}
+
+	private void MudarDeFase()
+	{
+		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); // Carrega a próxima cena
+	}
+
+	// Funções para verificar o chão usando colisão
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
-		if (collision.gameObject.CompareTag("Chão"))
+		if (collision.gameObject.layer == LayerMask.NameToLayer("Chão"))
 		{
 			emSolo = true;
-		}
-
-		if (collision.gameObject.CompareTag("Água"))
-		{
-			nadando = true;
-			//animator.SetBool("Nadando", true);
 		}
 	}
 
 	private void OnCollisionExit2D(Collision2D collision)
 	{
-		if (collision.gameObject.CompareTag("Chão"))
+		if (collision.gameObject.layer == LayerMask.NameToLayer("Chão"))
 		{
 			emSolo = false;
 		}
-
-		if (collision.gameObject.CompareTag("Água"))
-		{
-			nadando = false;
-			//animator.SetBool("Nadando", false);
-		}
 	}
-
-	// Usando Trigger para garantir que o chão seja detectado corretamente
-	private void OnTriggerEnter2D(Collider2D collision)
-	{
-		if (collision.CompareTag("Chão"))
-		{
-			emSolo = true;
-			Debug.Log("Player no chão");
-		}
-
-		if (collision.CompareTag("Água"))
-		{
-			nadando = true;
-			// animator.SetBool("Nadando", true);
-		}
-
-		if (collision.CompareTag("PowerUp"))
-		{
-			weapon.AtivarPowerUp();
-			Destroy(collision.gameObject);
-		}
-	}
-
 }

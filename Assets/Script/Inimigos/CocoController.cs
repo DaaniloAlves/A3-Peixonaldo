@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class CocoController : MonoBehaviour
 {
+
+    [SerializeField] private Rigidbody2D rb;
+
     private float dano;
     // Start is called before the first frame update
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -19,14 +22,16 @@ public class CocoController : MonoBehaviour
 
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
-		if (collision.gameObject.CompareTag("Chão"))
-        {
-            Destroy(gameObject);
-        }
         if (collision.gameObject.CompareTag("Player"))
         {
             // player perde hp
             Destroy(gameObject);
         }
 	}
+
+    public void ativarGravidade()
+    {
+        rb.gravityScale = 1;
+    }
+
 }

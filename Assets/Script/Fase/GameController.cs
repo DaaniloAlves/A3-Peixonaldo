@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-	private PlayerMovement player; // gameobject do player
+	private Player player; // gameobject do player
 	[SerializeField] private Transform myCamera; // transform da camera 
 	[SerializeField] private TextMeshProUGUI txtScore; // texto da pontuaçao
 													   //[SerializeField] private GameObject heart; // gameobject do coraçao
@@ -16,14 +16,14 @@ public class GameController : MonoBehaviour
 	void Start()
 	{
 		Instantiate(gaivota, new Vector3(10, 4, 0), Quaternion.identity);
-		player = FindObjectOfType<PlayerMovement>(); // achando o gameobject do player assim que começa a rodar
+		player = FindObjectOfType<Player>(); // achando o gameobject do player assim que começa a rodar
 	}
 
 
 	void Update()
 	{
 		myCamera.position = new Vector3(player.transform.position.x, 0, -10); // fazendo a camera seguir o player, passando o transform.position
-		txtScore.text = player.getScore().ToString(); // atualizando a interface da pontuaçao
+		// txtScore.text = player.getScore().ToString(); // atualizando a interface da pontuaçao
 	}
 
 	// metodo terá que ser chamado quando o player perder ou ganhar vida

@@ -10,11 +10,12 @@ TagManager:
   - "\xC1gua"
   - PowerUp
   - PontoCamera
+  - TriggerCoco
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - "Ch\xE3o"
   - Water
   - UI
   - 

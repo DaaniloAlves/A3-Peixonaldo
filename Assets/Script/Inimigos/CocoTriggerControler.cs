@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CocoTriggerControler : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private bool eventoAconteceu = false;
     void Start()
     {
         
@@ -17,15 +17,17 @@ public class CocoTriggerControler : MonoBehaviour
         
     }
 
-	private void OnTriggerEnter2D(Collider2D collision)
-	{
-        Debug.Log("bateu");
-		if (collision.CompareTag("Player"))
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (!eventoAconteceu)
+        { 
+        if (collision.CompareTag("Player"))
         {
             GameObject coco = GameObject.Find("CocoSprite");
             coco.GetComponent<CocoController>().ativarGravidade();
-			Debug.Log("achou");
-		}
+            eventoAconteceu=true;
+        }
+    }
 	}
 
 }

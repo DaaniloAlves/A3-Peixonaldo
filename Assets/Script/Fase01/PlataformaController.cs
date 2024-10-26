@@ -56,7 +56,6 @@ public class PlataformaController : MonoBehaviour
 	// método que idenfica se a plataforma deve ir pra vertical ou horizontal e faz a movimentaçao
 	private void identificarDirecao()
     {
-        Debug.Log(posicaoFinalMove);
         if (seMove)
         {
             if (transform.position.x == posicaoFinalMove || transform.position.y == posicaoFinalMove)

@@ -31,7 +31,7 @@ public class Player : MonoBehaviour
 	{
 		rb = GetComponent<Rigidbody2D>();
 		// animator = GetComponent<Animator>();
-		spriteRenderer = GetComponent<SpriteRenderer>();
+		spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 		weapon = GetComponentInChildren<Weapon>();
 		hpAtual = maxHP;
 		myCamera = GameObject.Find("Main Camera");
@@ -154,7 +154,7 @@ public class Player : MonoBehaviour
 	// Funções para verificar o chão usando colisão
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
-		if (collision.gameObject.layer == LayerMask.NameToLayer("Chão"))
+		if (collision.gameObject.layer == LayerMask.NameToLayer("Chão") || collision.gameObject.CompareTag("Espinho"))
 		{
 			emSolo = true;
 		}
@@ -166,7 +166,7 @@ public class Player : MonoBehaviour
 
 	private void OnCollisionExit2D(Collision2D collision)
 	{
-		if (collision.gameObject.layer == LayerMask.NameToLayer("Chão"))
+		if (collision.gameObject.layer == LayerMask.NameToLayer("Chão") || collision.gameObject.CompareTag("Espinho"))
 		{
 			emSolo = false;
 		}

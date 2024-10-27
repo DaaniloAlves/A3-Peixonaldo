@@ -13,6 +13,8 @@ public class GaviotaController : Enemy
 	[SerializeField] private int HP; // vida da gaivota
 	[SerializeField] private Transform camera; // pegando a camera para definir os limites abaixo
 	[SerializeField] private bool passou = false;
+	private GameObject ponto1;
+	private GameObject ponto2;
 
 
 	void Start()
@@ -21,6 +23,8 @@ public class GaviotaController : Enemy
 		transformAtaque = transform.Find("Ataque"); // encontrando o transform com o nome ataque
 		HP = 3;
 		rb.velocity = Vector2.left * 2.5f;
+		ponto1 = GameObject.Find("Ponto1");
+		ponto2 = GameObject.Find("Ponto2");
 	}
 
 
@@ -61,14 +65,21 @@ public class GaviotaController : Enemy
 			} else
 			{
 				SpriteRenderer gaivota = GetComponentInChildren<SpriteRenderer>();
-				if (gaivota.flipX == false)
-				{
-					gaivota.flipX = true;
-				} else
+				if (collision.gameObject == ponto1)
 				{
 					gaivota.flipX = false;
+					rb.velocity *= new Vector2(-1, 0);
+					collision.gameObject.SetActive(false);
+					ponto2.gameObject.SetActive(true);
 				}
-				rb.velocity *= new Vector2(-1, 0);
+				else if (collision.gameObject == ponto2)
+				{
+					gaivota.flipX = true;
+					rb.velocity *= new Vector2(-1, 0);
+					collision.gameObject.SetActive(false);
+					ponto1.gameObject.SetActive(true);
+				}
+				
 			}
 		}
 	}

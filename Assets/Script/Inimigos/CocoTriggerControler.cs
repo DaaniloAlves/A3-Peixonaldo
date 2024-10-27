@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CocoTriggerControler : MonoBehaviour
 {
-    private bool eventoAconteceu = false;
+    [SerializeField] private bool eventoAconteceu = false;
     void Start()
     {
         
@@ -23,9 +23,9 @@ public class CocoTriggerControler : MonoBehaviour
         { 
         if (collision.CompareTag("Player"))
         {
-            GameObject coco = GameObject.Find("CocoSprite");
-            coco.GetComponent<CocoController>().ativarGravidade();
-            eventoAconteceu=true;
+                GameObject coco = GameObject.Find("CocoSprite");
+                coco.GetComponent<Rigidbody2D>().gravityScale = 1;
+                eventoAconteceu=true;
         }
     }
 	}

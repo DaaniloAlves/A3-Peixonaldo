@@ -33,7 +33,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7606323851264165042}
-  - {fileID: 6139433229533420926}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7588747128408207292
@@ -53,14 +52,10 @@ MonoBehaviour:
   maxHP: 100
   hpAtual: 1
   pontosVidaExtra: 100
-  rb: {fileID: 0}
-  spriteRenderer: {fileID: 0}
-  weapon: {fileID: 0}
-  "checadorDeCh\xE3o": {fileID: 0}
-  "camadaCh\xE3o":
-    serializedVersion: 2
-    m_Bits: 0
-  raioChecador: 0.2
+  myCamera: {fileID: 0}
+  gameOver: {fileID: 224123345829967130, guid: 5737444212ebd15498767fa56d6c5793, type: 3}
+  emSolo: 0
+  pontosAcumulados: 0
 --- !u!61 &7535983243818004208
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -133,51 +128,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!1 &2790976442167824696
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6139433229533420926}
-  - component: {fileID: 8827801731299644638}
-  m_Layer: 0
-  m_Name: pontoAtaque
-  m_TagString: Untagged
-  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6139433229533420926
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2790976442167824696}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.56, y: -0.21, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 689544704250875569}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8827801731299644638
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2790976442167824696}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8d5beb194ea125438dd0696ffc7b5a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  posicaoAtaque: {fileID: 0}
 --- !u!1 &3460368415717407907
 GameObject:
   m_ObjectHideFlags: 0
@@ -249,7 +199,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 744513061
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 69f46f9dc3563e14d8a46efa13b79ecf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

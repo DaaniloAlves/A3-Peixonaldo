@@ -6,6 +6,7 @@ public class CocoController : MonoBehaviour
 {
 
     [SerializeField] private Rigidbody2D rb;
+    private float timerDestruicao = 3f;
 
     private float dano;
     // Start is called before the first frame update
@@ -17,7 +18,7 @@ public class CocoController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        contarTimerDestruicao(); 
     }
 
 	private void OnCollisionEnter2D(Collision2D collision)
@@ -25,13 +26,17 @@ public class CocoController : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             GameObject.Find("Player").GetComponent<Player>().TomarDano(20);
-		}
-		Destroy(gameObject);
+			Destroy(gameObject);
+		} 
 	}
 
-    public void ativarGravidade()
+    private void contarTimerDestruicao()
     {
-        rb.gravityScale = 1;
+        timerDestruicao -= Time.deltaTime;
+        if (timerDestruicao <= 0 )
+        {
+            Destroy(gameObject);
+        }
     }
 
 }

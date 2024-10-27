@@ -14,6 +14,7 @@ TagManager:
   - Espinho
   - PlayerIcon
   - ScoreIcon
+  - Moeda
   layers:
   - Default
   - TransparentFX

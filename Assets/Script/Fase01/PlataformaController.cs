@@ -1,92 +1,61 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class PlataformaController : MonoBehaviour
 {
+	[SerializeField] private bool cima, esquerda, eixoY, eixoX;
+	private float velocidade = 1f;
+	[SerializeField] private float posicaoFinal;
+	private float posicaoInicial;
 
-    private Rigidbody2D rb;
-
-    [SerializeField] private bool seMove = true;
-	// variavel para identificar para qual direcao a plataforma vai comecar se movimentado
-    // 0 = nenhum 1 = esquerda, 2 = cima, 3 = direita, 4 = baixo
-	[SerializeField] private int start = 0;
-    [SerializeField] private float limite = 1; // variavel para identificar quanto que a plataforma deve andar até parar
-    [SerializeField] private float velocidade = 1;
-    //private GameObject player;
-    private float posicaoInicioMove; // variavel para gravar onde que a plataforma para, parar se mover de novo na direcao contraria
-    private float posicaoFinalMove;
-    [SerializeField] private float timerParado = 2;
-
-	void Start()
-    {
-        
-        rb = GetComponent<Rigidbody2D>();
-        //player = GameObject.Find("Player");
-        switch (start)
-        {
-                case 1:
-                posicaoInicioMove = transform.position.x; break;
-                case 2:
-                posicaoInicioMove = transform.position.y; break;
-                case 3:
-                posicaoInicioMove = transform.position.x; break;
-                case 4:
-                posicaoInicioMove = transform.position.y; break;
-                default:
-                posicaoInicioMove = 0;
-                break;
-        }
-        //Physics2D.IgnoreCollision(player.GetComponent<Collider2D>(), GetComponent<Collider2D>());
-        posicaoFinalMove = posicaoInicioMove + limite;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-	private void FixedUpdate()
+	private void Start()
 	{
-		identificarDirecao();
+		if (eixoY)
+		{
+			posicaoInicial = transform.position.y;
+		} else if (eixoX)
+		{
+			posicaoInicial = transform.position.x;
+		}
+	}
+
+	private void Update()
+	{
+		if (cima && eixoY)
+		{
+			transform.Translate(Vector2.up * velocidade * Time.deltaTime);
+		}
+		if (transform.position.y > posicaoFinal && eixoY)
+		{
+			transform.Translate(Vector2.up * -velocidade * Time.deltaTime);
+			cima = false;
+		}
+		if (transform.position.y < posicaoInicial && eixoY)
+		{
+			transform.Translate(Vector2.up * velocidade * Time.deltaTime);
+			cima = true;
+		}
+
+		if (esquerda && eixoX)
+		{
+			transform.Translate(Vector2.left * velocidade * Time.deltaTime);
+		}
+		if (transform.position.x < posicaoFinal && eixoX)
+		{
+			transform.Translate(Vector2.left * -velocidade * Time.deltaTime);
+			esquerda = false;
+		}
+		if (transform.position.x > posicaoInicial && eixoX)
+		{
+			transform.Translate(Vector2.left * velocidade * Time.deltaTime);
+			esquerda = true;
+		}
+
 	}
 
 
-	// método que idenfica se a plataforma deve ir pra vertical ou horizontal e faz a movimentaçao
-	private void identificarDirecao()
-    {
-        if (seMove)
-        {
-            if (transform.position.x == posicaoFinalMove || transform.position.y == posicaoFinalMove)
-            {
-                timerParado -= Time.deltaTime;
-            }
-            else if (timerParado != 0)
-            {
-                switch (start)
-                {
-                    case 1:
-                        rb.velocity = Vector2.left * velocidade;
-                        timerParado = 2;
-                        break;
-                    case 2:
-                        rb.velocity = Vector2.up * velocidade;
-						timerParado = 2;
-						break;
-                    case 3:
-                        rb.velocity = Vector2.right * velocidade;
-						timerParado = 2;
-						break;
-                    case 4:
-                        rb.velocity = Vector2.down * velocidade;
-						timerParado = 2;
-						break;
-                    default:
-                        break;
-                }
-            }
-        }
-    }
 
 }

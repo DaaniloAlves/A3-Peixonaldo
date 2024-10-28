@@ -8,11 +8,12 @@ public class Player : MonoBehaviour
 	[Header("Atributos do Player")]
 	[SerializeField] private float velocidadeMovimento = 5f; // define a velocidade que o player anda
 	[SerializeField] private float forçaDoPulo = 15f; // define a força do pulo do player
-	[SerializeField] private int maxHP = 100; // define o HP máximo do player
-	[SerializeField] private int hpAtual; // define o HP atual do player
-	[SerializeField] private int pontosVidaExtra = 100; // Pontuação necessária para ganhar vida extra
-	[SerializeField] private GameObject myCamera;
+	private int maxHP = 5; // define o HP máximo do player
+	private int hpAtual; // define o HP atual do player
+	[SerializeField] private int pontosVidaExtra = 10; // Pontuação necessária para ganhar vida extra
+	private GameObject myCamera;
 	[SerializeField] private GameObject gameOver;
+	[SerializeField] private GameObject[] coracoes = new GameObject[5];
 
 	private Rigidbody2D rb;
 	// public Animator animator;
@@ -74,6 +75,16 @@ public class Player : MonoBehaviour
 	{
 		hpAtual -= dano;
 		StartCoroutine(PiscarVermelho());
+
+		for (int i = 4; i >= 0; i--)
+		{
+			if (coracoes[i].activeSelf)
+			{
+				coracoes[i].SetActive(false);
+				break;
+			}
+			
+		}
 
 		if (hpAtual <= 0)
 		{

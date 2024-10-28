@@ -25,7 +25,7 @@ public class CocoController : MonoBehaviour
 	{
         if (collision.gameObject.CompareTag("Player"))
         {
-            GameObject.Find("Player").GetComponent<Player>().TomarDano(20);
+            GameObject.Find("Player").GetComponent<Player>().TomarDano(1);
 			Destroy(gameObject);
 		} 
 	}

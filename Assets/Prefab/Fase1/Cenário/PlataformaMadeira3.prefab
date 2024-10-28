@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3980466064086677966}
   - component: {fileID: 5614964275105834885}
   - component: {fileID: 1762764410112536173}
+  - component: {fileID: -2674495206363248974}
   m_Layer: 0
   m_Name: PlataformaMadeira3
   m_TagString: "Ch\xE3o"
@@ -130,3 +131,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.89, y: 0.66}
   m_EdgeRadius: 0
+--- !u!114 &-2674495206363248974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5244291472750167772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccbd83147d6024b4baf5b7d3587897c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cima: 0
+  esquerda: 0
+  eixoY: 0
+  eixoX: 0
+  posicaoFinal: 0

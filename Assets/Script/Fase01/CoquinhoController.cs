@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CoquinhoController : MonoBehaviour
 {
-    [SerializeField] private int dano = 20;
+    [SerializeField] private int dano = 1;
 
 	private void OnCollisionEnter2D(Collision2D collision)
 	{

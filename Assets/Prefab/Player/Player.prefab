@@ -52,8 +52,13 @@ MonoBehaviour:
   maxHP: 100
   hpAtual: 1
   pontosVidaExtra: 100
-  myCamera: {fileID: 0}
   gameOver: {fileID: 224123345829967130, guid: 5737444212ebd15498767fa56d6c5793, type: 3}
+  coracoes:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   emSolo: 0
   pontosAcumulados: 0
 --- !u!61 &7535983243818004208

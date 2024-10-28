@@ -12,9 +12,8 @@ TagManager:
   - PontoCamera
   - TriggerCoco
   - Espinho
-  - PlayerIcon
-  - ScoreIcon
   - Moeda
+  - FimDaFase
   layers:
   - Default
   - TransparentFX

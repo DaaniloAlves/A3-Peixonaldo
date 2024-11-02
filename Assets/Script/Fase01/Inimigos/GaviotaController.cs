@@ -10,8 +10,7 @@ public class GaviotaController : Enemy
 	[SerializeField] private GameObject ataque02; // toletão
 	private float controleTempo = 2f; // intervalo entre os ataques
 	private Transform transformAtaque; // Transform que indica onde o ataque deve ser instanciado
-	[SerializeField] private int HP; // vida da gaivota
-	[SerializeField] private Transform camera; // pegando a camera para definir os limites abaixo
+	[SerializeField] private Transform myCamera; // pegando a camera para definir os limites abaixo
 	[SerializeField] private bool passou = false;
 	private GameObject ponto1;
 	private GameObject ponto2;
@@ -21,7 +20,6 @@ public class GaviotaController : Enemy
 	{
 		rb = GetComponent<Rigidbody2D>();
 		transformAtaque = transform.Find("Ataque"); // encontrando o transform com o nome ataque
-		HP = 3;
 		rb.velocity = Vector2.left * 2.5f;
 		ponto1 = GameObject.Find("Ponto1");
 		ponto2 = GameObject.Find("Ponto2");

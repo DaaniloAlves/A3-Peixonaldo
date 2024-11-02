@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -34,5 +35,10 @@ public class GameController : MonoBehaviour
 			myCamera.position = new Vector3(player.transform.position.x, 0, -10); // fazendo a camera seguir o player, passando o transform.position
 		}
 		 txtScore.text = player.getPontos().ToString(); // atualizando a interface da pontuaçao
+	}
+
+	public void restartGame()
+	{
+		SceneManager.LoadScene("Fase1");
 	}
 }

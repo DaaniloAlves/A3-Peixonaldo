@@ -98,10 +98,9 @@ public class Player : MonoBehaviour
 		rb.velocity = Vector2.zero;
 
 		// criando gameover ao morrer
-		Instantiate(gameOver, new Vector3(myCamera.transform.position.x + 2, myCamera.transform.position.y, 0), Quaternion.identity);
+		gameOver.SetActive(true);
 
-		// Reinicia a cena atual
-		// SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
 	}
 
 	public void ColetarPonto(int pontos)

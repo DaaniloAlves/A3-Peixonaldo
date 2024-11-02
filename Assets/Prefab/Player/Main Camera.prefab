@@ -490,7 +490,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1065633643666835012, guid: 020e97be46391234aa3d56d9b05073a4, type: 3}
       propertyPath: m_Name
-      value: VidaPersonagem (2)
+      value: Coracao3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2643680543921746514, guid: 020e97be46391234aa3d56d9b05073a4, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5100210815225411072, guid: 020e97be46391234aa3d56d9b05073a4, type: 3}
+      propertyPath: m_Name
+      value: coracao3Cheio
+      objectReference: {fileID: 0}
+    - target: {fileID: 5483148073992254579, guid: 020e97be46391234aa3d56d9b05073a4, type: 3}
+      propertyPath: m_Name
+      value: coracao3Vazio
       objectReference: {fileID: 0}
     - target: {fileID: 7214740938938666852, guid: 020e97be46391234aa3d56d9b05073a4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -552,7 +564,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1065633643666835012, guid: 020e97be46391234aa3d56d9b05073a4, type: 3}
       propertyPath: m_Name
-      value: VidaPersonagem (3)
+      value: Coracao4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2643680543921746514, guid: 020e97be46391234aa3d56d9b05073a4, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5100210815225411072, guid: 020e97be46391234aa3d56d9b05073a4, type: 3}
+      propertyPath: m_Name
+      value: coracao4Cheio
+      objectReference: {fileID: 0}
+    - target: {fileID: 5483148073992254579, guid: 020e97be46391234aa3d56d9b05073a4, type: 3}
+      propertyPath: m_Name
+      value: coracao4Vazio
       objectReference: {fileID: 0}
     - target: {fileID: 7214740938938666852, guid: 020e97be46391234aa3d56d9b05073a4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -614,7 +638,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1065633643666835012, guid: 020e97be46391234aa3d56d9b05073a4, type: 3}
       propertyPath: m_Name
-      value: VidaPersonagem (4)
+      value: Coracao5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2643680543921746514, guid: 020e97be46391234aa3d56d9b05073a4, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5100210815225411072, guid: 020e97be46391234aa3d56d9b05073a4, type: 3}
+      propertyPath: m_Name
+      value: coracao5Cheio
+      objectReference: {fileID: 0}
+    - target: {fileID: 5483148073992254579, guid: 020e97be46391234aa3d56d9b05073a4, type: 3}
+      propertyPath: m_Name
+      value: coracao5Vazio
       objectReference: {fileID: 0}
     - target: {fileID: 7214740938938666852, guid: 020e97be46391234aa3d56d9b05073a4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -676,7 +712,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1065633643666835012, guid: 020e97be46391234aa3d56d9b05073a4, type: 3}
       propertyPath: m_Name
-      value: VidaPersonagem (1)
+      value: Coracao2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2643680543921746514, guid: 020e97be46391234aa3d56d9b05073a4, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5100210815225411072, guid: 020e97be46391234aa3d56d9b05073a4, type: 3}
+      propertyPath: m_Name
+      value: coracao2Cheio
+      objectReference: {fileID: 0}
+    - target: {fileID: 5483148073992254579, guid: 020e97be46391234aa3d56d9b05073a4, type: 3}
+      propertyPath: m_Name
+      value: coracao2Vazio
       objectReference: {fileID: 0}
     - target: {fileID: 7214740938938666852, guid: 020e97be46391234aa3d56d9b05073a4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -738,7 +786,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1065633643666835012, guid: 020e97be46391234aa3d56d9b05073a4, type: 3}
       propertyPath: m_Name
-      value: VidaPersonagem
+      value: Coracao1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2643680543921746514, guid: 020e97be46391234aa3d56d9b05073a4, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5100210815225411072, guid: 020e97be46391234aa3d56d9b05073a4, type: 3}
+      propertyPath: m_Name
+      value: coracao1Cheio
+      objectReference: {fileID: 0}
+    - target: {fileID: 5483148073992254579, guid: 020e97be46391234aa3d56d9b05073a4, type: 3}
+      propertyPath: m_Name
+      value: coracao1Vazio
       objectReference: {fileID: 0}
     - target: {fileID: 7214740938938666852, guid: 020e97be46391234aa3d56d9b05073a4, type: 3}
       propertyPath: m_LocalPosition.x

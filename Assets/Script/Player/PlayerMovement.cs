@@ -8,17 +8,19 @@ public class Player : MonoBehaviour
 	[Header("Atributos do Player")]
 	[SerializeField] private float velocidadeMovimento = 5f; // define a velocidade que o player anda
 	[SerializeField] private float forçaDoPulo = 15f; // define a força do pulo do player
-	private int maxHP = 5; // define o HP máximo do player
+	private int maxHP = 4; // define o HP máximo do player
 	private int hpAtual; // define o HP atual do player
 	[SerializeField] private int pontosVidaExtra = 10; // Pontuação necessária para ganhar vida extra
 	private GameObject myCamera;
 	[SerializeField] private GameObject gameOver;
 	[SerializeField] private GameObject[] coracoes = new GameObject[5];
+	private bool isVivo;
 
 	private Rigidbody2D rb;
 	// public Animator animator;
 	private SpriteRenderer spriteRenderer;
 	private Weapon weapon;
+
 
 	[Header("Configurações do pulo")]
 	private Transform checadorDeChão;
@@ -30,6 +32,7 @@ public class Player : MonoBehaviour
 
 	private void Start()
 	{
+		isVivo = true;
 		rb = GetComponent<Rigidbody2D>();
 		// animator = GetComponent<Animator>();
 		spriteRenderer = GetComponentInChildren<SpriteRenderer>();
@@ -40,12 +43,10 @@ public class Player : MonoBehaviour
 
 	private void Update()
 	{
-		// Movimento horizontal
-		float movimento = Input.GetAxisRaw("Horizontal");
-		rb.velocity = new Vector2(movimento * velocidadeMovimento, rb.velocity.y);
-
-		// Ativa a animação de andar
-		// animator.SetFloat("Velocidade", Mathf.Abs(movimento));
+		if (isVivo)
+		{
+			Movimentar();
+		}
 
 		// Log para ver se o emSolo está sendo detectado corretamente
 
@@ -64,6 +65,15 @@ public class Player : MonoBehaviour
 		// animator.SetBool("EmSolo", emSolo);
 	}
 
+	private void Movimentar()
+	{
+		// Movimento horizontal
+		float movimento = Input.GetAxisRaw("Horizontal");
+		rb.velocity = new Vector2(movimento * velocidadeMovimento, rb.velocity.y);
+
+		// Ativa a animação de andar
+		// animator.SetFloat("Velocidade", Mathf.Abs(movimento));
+	}
 	private void Pular()
 	{
 		// Usando AddForce para pular
@@ -99,7 +109,7 @@ public class Player : MonoBehaviour
 
 		// criando gameover ao morrer
 		gameOver.SetActive(true);
-
+		isVivo = false;
 
 	}
 

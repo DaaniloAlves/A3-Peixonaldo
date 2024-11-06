@@ -11,6 +11,9 @@ TagManager:
   - PowerUp
   - PontoCamera
   - TriggerCoco
+  - Espinho
+  - Moeda
+  - FimDaFase
   layers:
   - Default
   - TransparentFX
@@ -54,6 +57,9 @@ TagManager:
   - name: "Cen\xE1rio"
     uniqueID: 2897856177
     locked: 0
+  - name: "\xC1rvore"
+    uniqueID: 894481985
+    locked: 0
   - name: Inimigos
     uniqueID: 2916912635
     locked: 0
@@ -62,4 +68,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 744513061
+    locked: 0
+  - name: GameOver
+    uniqueID: 3503349775
     locked: 0

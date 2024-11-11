@@ -14,6 +14,8 @@ TagManager:
   - Espinho
   - Moeda
   - FimDaFase
+  - Inimigo
+  - AtaquePlayer
   layers:
   - Default
   - TransparentFX
@@ -21,8 +23,8 @@ TagManager:
   - "Ch\xE3o"
   - Water
   - UI
-  - 
-  - 
+  - Inimigo
+  - Player
   - 
   - 
   - 

@@ -16,8 +16,9 @@ public class Player : MonoBehaviour
 	[SerializeField] private GameObject gameOver;
 	[SerializeField] private GameObject[] coracoes = new GameObject[5];
 	private bool isVivo;
-	private bool isGrounded = false;
-	Animator animator;
+	[SerializeField] private bool isGrounded = false;
+	Animator animator;	
+	private Vector3 posicaoAtual;
 
 	private Rigidbody2D rb;
 	// public Animator animator;
@@ -28,13 +29,13 @@ public class Player : MonoBehaviour
 	[Header("Configurações do pulo")]
 	private Transform checadorDeChão;
 	private LayerMask camadaChão;
-	[SerializeField] private bool emSolo;
 	private float raioChecador = 0.2f;  // Aumentar o raio para detectar o chão 
 
 	[SerializeField] private int pontosAcumulados = 0;
 
 	private void Start()
 	{
+		posicaoAtual = transform.position;
 		isVivo = true;
 		rb = GetComponent<Rigidbody2D>();
 		// animator = GetComponent<Animator>();
@@ -47,6 +48,11 @@ public class Player : MonoBehaviour
 
 	private void Update()
 	{
+		if (isGrounded)
+		{
+			posicaoAtual = transform.position;
+		}
+
 		// Log para ver se o emSolo está sendo detectado corretamente
 		if (Input.GetButtonDown("Jump") && isGrounded)
 		{
@@ -58,8 +64,6 @@ public class Player : MonoBehaviour
 		{
 			// weapon.Atacar(animator);
 		}
-		// Atualiza o valor booleano da animação de solo
-		// animator.SetBool("EmSolo", emSolo);
 	}
 	private void FixedUpdate()
 	{
@@ -76,6 +80,7 @@ public class Player : MonoBehaviour
 		rb.velocity = new Vector2(movimento * velocidadeMovimento, rb.velocity.y);
 		// Animação andando/parado e pulando/caindo
 		animator.SetFloat("XVelocity", Math.Abs(rb.velocity.x));
+		spriteRenderer.flipX = movimento < 0;
 		animator.SetFloat("YVelocity", rb.velocity.y);
 	}
 	private void Pular()
@@ -143,6 +148,10 @@ public class Player : MonoBehaviour
 		spriteRenderer.color = Color.red;
 		yield return new WaitForSeconds(0.1f);
 		spriteRenderer.color = Color.white;
+		yield return new WaitForSeconds(0.1f);
+		spriteRenderer.color = Color.red;
+		yield return new WaitForSeconds(0.1f);
+		spriteRenderer.color = Color.white;
 	}
 
 	public float getPontos()
@@ -184,6 +193,11 @@ public class Player : MonoBehaviour
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
 		if (collision.gameObject.CompareTag("Espinho"))
+		{
+			TomarDano(1);
+			transform.position = posicaoAtual;
+		}
+		if (collision.gameObject.CompareTag("Inimigo"))
 		{
 			TomarDano(1);
 		}

@@ -29,7 +29,7 @@ public class GeradorNuvens : MonoBehaviour
         if (!isInIntervalo())
         {
             int choice = Random.Range(1, 3);
-			float posicao = Random.Range(1.65f, 4.66f);
+			float posicao = Random.Range(1.65f, 15);
             switch (choice)
             {
                 case 1:

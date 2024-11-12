@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,13 +9,16 @@ public class Player : MonoBehaviour
 	[Header("Atributos do Player")]
 	[SerializeField] private float velocidadeMovimento = 5f; // define a velocidade que o player anda
 	[SerializeField] private float forçaDoPulo = 15f; // define a força do pulo do player
-	private int maxHP = 4; // define o HP máximo do player
+	private int maxHP = 5; // define o HP máximo do player
 	private int hpAtual; // define o HP atual do player
 	[SerializeField] private int pontosVidaExtra = 10; // Pontuação necessária para ganhar vida extra
 	private GameObject myCamera;
 	[SerializeField] private GameObject gameOver;
 	[SerializeField] private GameObject[] coracoes = new GameObject[5];
 	private bool isVivo;
+	[SerializeField] private bool isGrounded = false;
+	Animator animator;	
+	private Vector3 posicaoAtual;
 
 	private Rigidbody2D rb;
 	// public Animator animator;
@@ -25,44 +29,48 @@ public class Player : MonoBehaviour
 	[Header("Configurações do pulo")]
 	private Transform checadorDeChão;
 	private LayerMask camadaChão;
-	[SerializeField] private bool emSolo;
 	private float raioChecador = 0.2f;  // Aumentar o raio para detectar o chão 
 
 	[SerializeField] private int pontosAcumulados = 0;
 
 	private void Start()
 	{
+		posicaoAtual = transform.position;
 		isVivo = true;
 		rb = GetComponent<Rigidbody2D>();
 		// animator = GetComponent<Animator>();
 		spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-		weapon = GetComponentInChildren<Weapon>();
+		weapon = GetComponentInChildren<Weapon>(); // nunca vai achar
 		hpAtual = maxHP;
 		myCamera = GameObject.Find("Main Camera");
+		animator = GetComponentInChildren<Animator>();
 	}
 
 	private void Update()
 	{
-		if (isVivo)
+		if (isGrounded)
 		{
-			Movimentar();
+			posicaoAtual = transform.position;
 		}
 
 		// Log para ver se o emSolo está sendo detectado corretamente
-
-		if (Input.GetButtonDown("Jump") && emSolo)
+		if (Input.GetButtonDown("Jump") && isGrounded)
 		{
 			Pular();
+			animator.SetBool("isJumping", !isGrounded);
 		}
-
 		// Atacar
 		if (Input.GetButtonDown("Ataque"))
 		{
 			// weapon.Atacar(animator);
 		}
-
-		// Atualiza o valor booleano da animação de solo
-		// animator.SetBool("EmSolo", emSolo);
+	}
+	private void FixedUpdate()
+	{
+		if (isVivo)
+		{
+			Movimentar();
+		}
 	}
 
 	private void Movimentar()
@@ -70,15 +78,16 @@ public class Player : MonoBehaviour
 		// Movimento horizontal
 		float movimento = Input.GetAxisRaw("Horizontal");
 		rb.velocity = new Vector2(movimento * velocidadeMovimento, rb.velocity.y);
-
-		// Ativa a animação de andar
-		// animator.SetFloat("Velocidade", Mathf.Abs(movimento));
+		// Animação andando/parado e pulando/caindo
+		animator.SetFloat("XVelocity", Math.Abs(rb.velocity.x));
+		spriteRenderer.flipX = movimento < 0;
+		animator.SetFloat("YVelocity", rb.velocity.y);
 	}
 	private void Pular()
 	{
 		// Usando AddForce para pular
 		rb.AddForce(new Vector2(0f, forçaDoPulo), ForceMode2D.Impulse);
-		// animator.SetTrigger("Pular");
+		animator.SetBool("isJumping", !isGrounded);
 	}
 
 	public void TomarDano(int dano)
@@ -104,7 +113,7 @@ public class Player : MonoBehaviour
 
 	private void Morrer()
 	{
-		// animator.SetTrigger("Morrer");
+		// impossibilitando a movimentaçao ao morrer
 		rb.velocity = Vector2.zero;
 
 		// criando gameover ao morrer
@@ -139,6 +148,10 @@ public class Player : MonoBehaviour
 		spriteRenderer.color = Color.red;
 		yield return new WaitForSeconds(0.1f);
 		spriteRenderer.color = Color.white;
+		yield return new WaitForSeconds(0.1f);
+		spriteRenderer.color = Color.red;
+		yield return new WaitForSeconds(0.1f);
+		spriteRenderer.color = Color.white;
 	}
 
 	public float getPontos()
@@ -164,6 +177,11 @@ public class Player : MonoBehaviour
 		{
 			MudarDeFase();
 		}
+		if (collision.CompareTag("Chão"))
+		{
+			animator.SetBool("isJumping", isGrounded);
+			isGrounded = true;
+		}
 	}
 
 	private void MudarDeFase()
@@ -171,24 +189,27 @@ public class Player : MonoBehaviour
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); // Carrega a próxima cena
 	}
 
-	// Funções para verificar o chão usando colisão
+
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
-		if (collision.gameObject.layer == LayerMask.NameToLayer("Chão") || collision.gameObject.CompareTag("Espinho"))
-		{
-			emSolo = true;
-		}
 		if (collision.gameObject.CompareTag("Espinho"))
+		{
+			TomarDano(1);
+			transform.position = posicaoAtual;
+		}
+		if (collision.gameObject.CompareTag("Inimigo"))
 		{
 			TomarDano(1);
 		}
 	}
 
-	private void OnCollisionExit2D(Collision2D collision)
+	private void OnTriggerExit2D(Collider2D collision)
 	{
-		if (collision.gameObject.layer == LayerMask.NameToLayer("Chão") || collision.gameObject.CompareTag("Espinho"))
+		if (collision.CompareTag("Chão"))
 		{
-			emSolo = false;
+			isGrounded = false;
+			animator.SetBool("isJumping", !isGrounded);
+			
 		}
 	}
 }

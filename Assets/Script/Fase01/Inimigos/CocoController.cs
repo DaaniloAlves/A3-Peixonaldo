@@ -21,16 +21,16 @@ public class CocoController : MonoBehaviour
         contarTimerDestruicao(); 
     }
 
-	private void OnCollisionEnter2D(Collision2D collision)
+	private void OnTriggerEnter2D(Collider2D collision)
 	{
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            GameObject.Find("Player").GetComponent<Player>().TomarDano(1);
+		if (collision.CompareTag("Player"))
+		{
+			GameObject.Find("Player").GetComponent<Player>().TomarDano(1);
 			Destroy(gameObject);
-		} 
+		}
 	}
 
-    private void contarTimerDestruicao()
+	private void contarTimerDestruicao()
     {
         timerDestruicao -= Time.deltaTime;
         if (timerDestruicao <= 0 )

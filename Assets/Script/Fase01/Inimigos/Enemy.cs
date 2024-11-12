@@ -8,7 +8,6 @@ public class Enemy : MonoBehaviour
 	public void ReceberDano(float dano)
 	{
 		vida -= dano;
-		Debug.Log("Inimigo recebeu dano: " + dano);
 		if (vida <= 0)
 		{
 			Morrer();
@@ -17,15 +16,13 @@ public class Enemy : MonoBehaviour
 
 	private void Morrer()
 	{
-		Debug.Log("Inimigo morreu!");
 		Destroy(gameObject);
 	}
-
-	//private void OnTriggerEnter2D(Collision collision)
-	//{
-	//	if (collision.CompareTag("AtaquePlayer"))
-	//	{
-	//		ReceberDano(2); // valor de teste
-	//	}
-	//}
+	private void OnTriggerEnter2D(Collider2D collision)
+	{
+		if (collision.CompareTag("AtaquePlayer"))
+		{
+			ReceberDano(1); // valor de teste
+		}
+	}
 }

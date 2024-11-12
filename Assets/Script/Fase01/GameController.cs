@@ -26,13 +26,16 @@ public class GameController : MonoBehaviour
 	{
 		if (player.transform.position.x < -12.9)
 		{
-			myCamera.position = new Vector3(-12.9f, 0, -10);
-		} else if (player.transform.position.x > 56)
+			myCamera.position = new Vector3(-12.9f, player.transform.position.y, -10);
+		} else if (player.transform.position.x > 175)
 		{
-			myCamera.position = new Vector3(56, 0, -10);
-		} else
+			myCamera.position = new Vector3(175, player.transform.position.y, -10);
+		} else if (player.transform.position.y < 0)
 		{
 			myCamera.position = new Vector3(player.transform.position.x, 0, -10); // fazendo a camera seguir o player, passando o transform.position
+		} else
+		{
+			myCamera.position = new Vector3(player.transform.position.x, player.transform.position.y, -10); // fazendo a camera seguir o player, passando o transform.position
 		}
 		 txtScore.text = player.getPontos().ToString(); // atualizando a interface da pontuaçao
 	}

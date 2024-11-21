@@ -19,26 +19,27 @@ public class Player : MonoBehaviour
 	[SerializeField] private bool isGrounded = false;
 	Animator animator;	
 	private Vector3 posicaoAtual;
+	[SerializeField] bool isNadando;
+	[SerializeField] private float timeBtwAttack;
+	[SerializeField] private Transform attackPos;
+	[SerializeField] private LayerMask whatIsEnemies;
+	[SerializeField] private float attackRange;
+	[SerializeField] private int dano;
 
 	private Rigidbody2D rb;
-	// public Animator animator;
 	private SpriteRenderer spriteRenderer;
 	private Weapon weapon;
-
-
-	[Header("Configurações do pulo")]
-	private Transform checadorDeChão;
-	private LayerMask camadaChão;
-	private float raioChecador = 0.2f;  // Aumentar o raio para detectar o chão 
 
 	[SerializeField] private int pontosAcumulados = 0;
 
 	private void Start()
 	{
+		timeBtwAttack = 1;
+		dano = 1;
+		isNadando = false;
 		posicaoAtual = transform.position;
 		isVivo = true;
 		rb = GetComponent<Rigidbody2D>();
-		// animator = GetComponent<Animator>();
 		spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 		weapon = GetComponentInChildren<Weapon>(); // nunca vai achar
 		hpAtual = maxHP;
@@ -48,23 +49,49 @@ public class Player : MonoBehaviour
 
 	private void Update()
 	{
+		if (transform.position.y < -4.2 && !isGrounded)
+		{
+			isNadando = true;
+		}
 		if (isGrounded)
 		{
 			posicaoAtual = transform.position;
 		}
 
 		// Log para ver se o emSolo está sendo detectado corretamente
-		if (Input.GetButtonDown("Jump") && isGrounded)
+		if ((Input.GetButtonDown("Jump") && isGrounded) || (Input.GetButtonDown("Jump") && isNadando))
 		{
 			Pular();
-			animator.SetBool("isJumping", !isGrounded);
+			if (isGrounded)
+			{
+				animator.SetBool("isJumping", !isGrounded);
+			}
 		}
 		// Atacar
-		if (Input.GetButtonDown("Ataque"))
+		if(timeBtwAttack <= 0) {
+			if (Input.GetButtonDown("Fire1"))
+			{
+				Debug.Log("atacou de verdade");
+				Collider2D[] inimigos = Physics2D.OverlapCircleAll(attackPos.position, attackRange, whatIsEnemies);
+				for (int i = 0; i < inimigos.Length; i++)
+				{
+					inimigos[i].GetComponent<Enemy>().ReceberDano(dano);
+				}
+				
+			}
+		} else
 		{
-			// weapon.Atacar(animator);
+			timeBtwAttack -= Time.deltaTime;
 		}
+		
 	}
+
+	private void OnDrawGizmosSelected()
+	{
+		Gizmos.color = Color.red;
+		Gizmos.DrawWireSphere(attackPos.position, attackRange);
+	}
+
 	private void FixedUpdate()
 	{
 		if (isVivo)
@@ -72,6 +99,7 @@ public class Player : MonoBehaviour
 			Movimentar();
 		}
 	}
+
 
 	private void Movimentar()
 	{
@@ -87,7 +115,6 @@ public class Player : MonoBehaviour
 	{
 		// Usando AddForce para pular
 		rb.AddForce(new Vector2(0f, forçaDoPulo), ForceMode2D.Impulse);
-		animator.SetBool("isJumping", !isGrounded);
 	}
 
 	public void TomarDano(int dano)
@@ -159,6 +186,21 @@ public class Player : MonoBehaviour
 		return pontosAcumulados;
 	}
 
+	public bool getIsNadando()
+	{
+		return isNadando;
+	}
+
+	public void setIsGrounded(bool isGrounded)
+	{
+		this.isGrounded = isGrounded;
+	}
+
+	public bool getIsGrounded()
+	{
+		return isGrounded;
+	}
+
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
 		if (collision.gameObject.CompareTag("PowerUp"))
@@ -177,10 +219,10 @@ public class Player : MonoBehaviour
 		{
 			MudarDeFase();
 		}
-		if (collision.CompareTag("Chão"))
+		
+		if (collision.gameObject.CompareTag("Inimigo"))
 		{
-			animator.SetBool("isJumping", isGrounded);
-			isGrounded = true;
+			TomarDano(1);
 		}
 	}
 
@@ -197,19 +239,8 @@ public class Player : MonoBehaviour
 			TomarDano(1);
 			transform.position = posicaoAtual;
 		}
-		if (collision.gameObject.CompareTag("Inimigo"))
-		{
-			TomarDano(1);
-		}
+		
 	}
 
-	private void OnTriggerExit2D(Collider2D collision)
-	{
-		if (collision.CompareTag("Chão"))
-		{
-			isGrounded = false;
-			animator.SetBool("isJumping", !isGrounded);
-			
-		}
-	}
+	
 }

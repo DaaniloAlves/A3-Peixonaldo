@@ -1,0 +1,32 @@
+body {
+    margin: 0;
+    height: 100vh;
+}
+
+.container {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+}
+
+.top-image {
+    position: fixed;
+    width: 100%;
+}
+
+.background-image {
+    height: 100%;
+    width: 100%;
+    background-image: url('./img/Background\ Color.png'); 
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top center;
+}
+
+
+#peixonaldo{
+    margin-top: 200px;
+    margin-left: 50px;
+    width: 340px;
+}

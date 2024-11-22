@@ -1,0 +1,368 @@
+* {
+    border: 0;
+    padding: 0;
+    box-sizing: border-box;
+    margin: 0; 
+}
+
+html, body {
+    height: 100%; 
+    font-family: "Pixelify Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+#section-1 {
+    width: 100vw; 
+    height: 100vh; 
+    background-image: url(./img/Background.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+#section-1-nav{
+    background-color: #FFD080;
+    height: 58px;
+    width: 829px;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 20px;
+    margin-top: -10px;
+    gap: 91px;
+    justify-content: space-around;
+}
+
+
+#section-1-nav a{
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 24px;
+    color: #923B00;
+}
+
+#section-1-nav a:hover{
+    color: #FF9A2B;
+    ;
+}
+
+
+.section-container img{
+    width: 516px;
+}
+
+.section-container p{
+    font-size: 24px;
+    text-align: center;
+}
+
+.section-container {
+    width: 45%;
+    margin: auto; 
+    display: flex; 
+    flex-direction:column;
+    justify-content: center;
+    align-items: center; 
+    height: 80vh; 
+}
+
+button {
+    background-color: #bd6a62;
+    color: white;
+    font-size: 24px;
+    padding: 10px 30px; 
+    font-family: "Pixelify Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    border-radius: 10px;
+    border: 2px solid black;
+    margin-top: 20px;
+}
+
+#section-1-imgs {
+    position: absolute; 
+    bottom: 0; 
+    left: 100px; 
+    right: 100px; 
+    display: flex; 
+    justify-content: space-between;
+ 
+}
+
+#carangueijo{
+    width: 125px;
+    height: 73px; 
+}
+
+
+#plataforma{
+    width: 100%;
+}
+
+#section-2 {
+    height: 100vh; 
+    width: 100%;  
+    background-image: url(./img/Background\ Color.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#section-2 p{
+    font-size: 24px;
+    color: #000000;
+    text-align: justify;
+    align-content: center;
+    flex-grow: 2;
+}
+
+#section-2 h2{
+    font-size: 64px;
+    font-weight: 700;
+    color: #923B00;
+    flex-grow: 1;
+}
+
+#section-2-container {
+    display: grid;
+    grid-template-columns: 30% 70%; 
+    width: 80%;
+    height: 50vh; 
+    margin: auto;
+    justify-content: flex-start; 
+    align-items: center; 
+    gap: 20px; 
+}
+
+#section-2 button{
+    margin-left: 70%;
+}
+
+#section-3{
+    background-image: url(./img/Background-1.png);
+}
+
+
+#section-3 h3{
+    font-weight: 700;
+    font-size: 64px;
+    color: #FF9A2B;
+    text-align: center;
+}
+
+#section-3 p{
+    font-weight: 700;
+    font-size: 24px; 
+    color: #353535;
+}
+
+#section-3 h4{
+    font-weight: 700;
+    font-size: 48px;
+    color: #353535;
+}
+
+.section-3-container{
+    margin-top: 30px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.section-3{
+    width: 80%;
+    margin: auto;
+}
+
+#section-4{
+    height: 100vh;
+    background-image: url(./img/Background\ Areia.png);
+}
+
+/*#section-4-container{
+    background-image: url(img/Madeira.png);
+    background-repeat: no-repeat;
+    width: 100%;
+}
+    */
+
+#section-4 h5{
+    color: #FFBD9F;
+    font-size: 64px;
+    font-weight: 700;
+}
+
+#section-4 p{
+    font-weight: 400;
+    size: 32px;
+    color: #F1F1F1;
+}
+
+#section-4 input{
+    background: #FFD080;
+    width: 538px;
+    height: 68px;
+    border-radius: 18px;
+    border: 3.5px solid #923B00;
+    font-family: "Pixelify Sans", sans-serif;
+    color: #AE8D55;
+    font-size: 24px;
+}
+
+
+#section-4 button{
+    color: #FFBD9F;
+    width: 132px;
+    height: 68px;
+}
+
+#section-4-container {
+    width: 50%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; 
+    background-image: url(./img/Madeira.png);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+
+
+
+#section-5{
+    height: 100%;
+    background-image: url(./img/Background\ Color2.png);
+    color:#FFFFFF;
+}
+
+#section-5-container{
+    width: 70%;
+    margin: auto;
+}
+
+#section-5 h6{
+    font-weight: 700;
+    font-size: 64px;
+    text-align: center;
+    padding: 50px 0px;
+}
+
+#section-5 p{
+    color:  #D3D3D3;
+    font-size: 24px;
+    padding-bottom: 50px;
+    text-align: center;
+    
+}
+
+#section-5-container-cards{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    grid-auto-rows: minmax(200px, auto);
+}
+
+#section-5-container-cards button{
+    width: 202px;
+    height: 52px;
+    border-radius: 19px;
+    align-self: center;
+    background: #3081C2;
+    box-shadow: 3px 4px 0px 1px #144B77;
+
+
+
+}
+.section-5-items{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+}
+
+.section-5-items img{
+    width: 94px;
+    height: 94px;
+    margin: auto;
+}
+
+.section-5-items p{
+    padding-top: 20px;
+    padding-bottom: 40px;
+    text-align: center;
+}
+
+#section-5-container-titulo{
+    width: 60%;
+    margin: auto;
+}
+
+#section-6{
+    width: 100vw;
+    height: 100vh;
+    background-image: url(./img/Background\ Section\ 6.png);
+}
+
+#section-6 h6{
+    font-weight: 700;
+    font-size: 96px;
+    color: #FFFFFF;
+    text-align: center;
+    margin-bottom: 100px;
+    padding-top: 50px;
+}
+
+#section-6-container{
+    width: 70vw;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 100px;
+    margin: auto;
+}
+
+footer {
+    display: flex;
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+    background-color: #08243C;
+    text-align: center;
+}
+
+
+
+footer ul {
+    display: flex;
+    list-style: none; 
+    padding: 0; 
+    margin: 10px 0; 
+}
+
+footer ul li {
+    margin: 0 15px; 
+}
+
+footer ul li a {
+    text-decoration: none; 
+    color: #FFFFFF;
+    font-weight: 400;
+}
+
+
+
+footer p {
+    margin-top: 20px; 
+    margin-bottom: 30px;
+    font-size: 15px; 
+    color: #9B9B9B;
+
+}
+
+

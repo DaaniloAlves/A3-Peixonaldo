@@ -53,12 +53,14 @@ public class Player : MonoBehaviour
 		{
 			isNadando = true;
 		}
+		if (transform.position.y > 0)
+		{
+			isNadando = false;
+		}
 		if (isGrounded)
 		{
 			posicaoAtual = transform.position;
 		}
-
-		// Log para ver se o emSolo está sendo detectado corretamente
 		if ((Input.GetButtonDown("Jump") && isGrounded) || (Input.GetButtonDown("Jump") && isNadando))
 		{
 			Pular();
@@ -67,23 +69,37 @@ public class Player : MonoBehaviour
 				animator.SetBool("isJumping", !isGrounded);
 			}
 		}
-		// Atacar
-		if(timeBtwAttack <= 0) {
-			if (Input.GetButtonDown("Fire1"))
-			{
-				Debug.Log("atacou de verdade");
-				Collider2D[] inimigos = Physics2D.OverlapCircleAll(attackPos.position, attackRange, whatIsEnemies);
-				for (int i = 0; i < inimigos.Length; i++)
-				{
-					inimigos[i].GetComponent<Enemy>().ReceberDano(dano);
-				}
-				
-			}
-		} else
-		{
-			timeBtwAttack -= Time.deltaTime;
-		}
+		atacar();
 		
+		
+	}
+
+	private void atacar()
+	{
+		if (isGrounded)
+		{
+			if (timeBtwAttack <= 0)
+			{
+				if (Input.GetButtonDown("Fire1"))
+				{
+					Debug.Log("atacou de verdade");
+					Collider2D[] inimigos = Physics2D.OverlapCircleAll(attackPos.position, attackRange, whatIsEnemies);
+					for (int i = 0; i < inimigos.Length; i++)
+					{
+						inimigos[i].GetComponent<Enemy>().ReceberDano(dano);
+					}
+
+				}
+			}
+			else
+			{
+				timeBtwAttack -= Time.deltaTime;
+			}
+		}
+		if (isNadando)
+		{
+
+		}
 	}
 
 	private void OnDrawGizmosSelected()

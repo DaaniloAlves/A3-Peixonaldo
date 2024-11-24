@@ -33,10 +33,15 @@ public class GameController : MonoBehaviour
 		} else if (player.transform.position.x > 208)
 		{
 			myCamera.position = new Vector3(208, player.transform.position.y, -10);
+		}
+		else if (player.transform.position.y > -10 && !player.getIsNadando())
+		{
+			myCamera.position = new Vector3(player.transform.position.x, -10, -10); // fazendo a camera seguir o player, passando o transform.position
 		} else if (player.transform.position.y < 0 && !player.getIsNadando())
 		{
 			myCamera.position = new Vector3(player.transform.position.x, 0, -10); // fazendo a camera seguir o player, passando o transform.position
-		} else
+		} 
+		else
 		{
 			myCamera.position = new Vector3(player.transform.position.x, player.transform.position.y, -10); // fazendo a camera seguir o player, passando o transform.position
 		}
@@ -54,7 +59,7 @@ public class GameController : MonoBehaviour
 
 	public void restartGame()
 	{
-		SceneManager.LoadScene("Fase1");
+		SceneManager.LoadScene(1);
 	}
 
 	public void menu()

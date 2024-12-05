@@ -9,7 +9,7 @@ public class CaranguejoController : Enemy
 	[SerializeField] private Vector2 targetPos;
 	void Start()
     {
-		vida = 3;
+		spriteRenderer = GetComponent<SpriteRenderer>();
 		targetPos = posicao2.position;
 	}
 
@@ -22,4 +22,6 @@ public class CaranguejoController : Enemy
 		transform.position = Vector2.MoveTowards(transform.position, targetPos, velocidade * Time.deltaTime);
 		
 	}
+
+
 }

@@ -15,6 +15,8 @@ public class GameController : MonoBehaviour
 	[SerializeField] private GameObject gaivota;
 	[SerializeField] private bool isPaused;
 	[SerializeField] private GameObject pause;
+	[SerializeField] private GameObject boss;
+	private bool bossInstanciado = false;
 
 	void Start()
 	{
@@ -30,11 +32,11 @@ public class GameController : MonoBehaviour
 		if (player.transform.position.x < -12.9)
 		{
 			myCamera.position = new Vector3(-12.9f, player.transform.position.y, -10);
-		} else if (player.transform.position.x > 208)
+		} else if (player.transform.position.x > 280)
 		{
-			myCamera.position = new Vector3(208, player.transform.position.y, -10);
+			myCamera.position = new Vector3(280, player.transform.position.y, -10);
 		}
-		else if (player.transform.position.y > -10 && !player.getIsNadando())
+		else if (player.transform.position.y > -10 && player.getIsNadando())
 		{
 			myCamera.position = new Vector3(player.transform.position.x, -10, -10); // fazendo a camera seguir o player, passando o transform.position
 		} else if (player.transform.position.y < 0 && !player.getIsNadando())
@@ -55,6 +57,12 @@ public class GameController : MonoBehaviour
 			
 			
 		}
+
+		
+		if (player.transform.position.x > 200 && player.transform.position.y < -28)
+		{
+			if (!bossInstanciado) { Instantiate(boss, new Vector3(235.09f, -32.15f, -0.5285227f), Quaternion.identity); bossInstanciado = true; }
+		}
 	}
 
 	public void restartGame()
@@ -62,9 +70,16 @@ public class GameController : MonoBehaviour
 		SceneManager.LoadScene(1);
 	}
 
+	public void pausar()
+	{
+		pause.SetActive(true);
+		isPaused = true;
+		Time.timeScale = 0;
+	}
+
 	public void menu()
 	{
-
+		SceneManager.LoadScene("Tela inicial");
 	}
 	public void backToGame()
 	{
@@ -75,6 +90,6 @@ public class GameController : MonoBehaviour
 	}
 	public void quit()
 	{
-
+		Application.Quit();
 	}
 }

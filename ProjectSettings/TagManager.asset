@@ -16,6 +16,8 @@ TagManager:
   - FimDaFase
   - Inimigo
   - AtaquePlayer
+  - Ataque
+  - Fim
   layers:
   - Default
   - TransparentFX

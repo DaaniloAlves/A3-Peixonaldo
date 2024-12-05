@@ -1,3 +1,4 @@
+using SimpleInputNamespace;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,24 +8,28 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
 	[Header("Atributos do Player")]
-	[SerializeField] private float velocidadeMovimento = 5f; // define a velocidade que o player anda
+	[SerializeField] private float velocidadeMovimento = 2.5f; // define a velocidade que o player anda
 	[SerializeField] private float forçaDoPulo = 15f; // define a força do pulo do player
 	private int maxHP = 5; // define o HP máximo do player
 	private int hpAtual; // define o HP atual do player
 	[SerializeField] private int pontosVidaExtra = 10; // Pontuação necessária para ganhar vida extra
 	private GameObject myCamera;
-	[SerializeField] private GameObject gameOver;
+	[SerializeField] private GameObject gameOver, ataqueAgua;
+	[SerializeField] private float velocidadeAtaqueAgua = 5f;
 	[SerializeField] private GameObject[] coracoes = new GameObject[5];
 	private bool isVivo;
 	[SerializeField] private bool isGrounded = false;
-	Animator animator;	
+	Animator animator;
 	private Vector3 posicaoAtual;
-	[SerializeField] bool isNadando;
+	[SerializeField] private bool isNadando;
 	[SerializeField] private float timeBtwAttack;
 	[SerializeField] private Transform attackPos;
 	[SerializeField] private LayerMask whatIsEnemies;
 	[SerializeField] private float attackRange;
 	[SerializeField] private int dano;
+	[SerializeField] private float resistênciaNaÁgua = 0.5f;
+	[SerializeField] private Joystick joystick;
+	[SerializeField] private bool forceUseMobileInput;
 
 	private Rigidbody2D rb;
 	private SpriteRenderer spriteRenderer;
@@ -64,17 +69,21 @@ public class Player : MonoBehaviour
 		if ((Input.GetButtonDown("Jump") && isGrounded) || (Input.GetButtonDown("Jump") && isNadando))
 		{
 			Pular();
-			if (isGrounded)
-			{
-				animator.SetBool("isJumping", !isGrounded);
-			}
+		}
+		if (isGrounded)
+		{
+			animator.SetBool("isJumping", !isGrounded);
+		}
+		else
+		{
+			animator.SetBool("isJumping", !isGrounded);
 		}
 		atacar();
-		
-		
+
+
 	}
 
-	private void atacar()
+	public void atacar()
 	{
 		if (isGrounded)
 		{
@@ -82,14 +91,15 @@ public class Player : MonoBehaviour
 			{
 				if (Input.GetButtonDown("Fire1"))
 				{
-					Debug.Log("atacou de verdade");
 					Collider2D[] inimigos = Physics2D.OverlapCircleAll(attackPos.position, attackRange, whatIsEnemies);
 					for (int i = 0; i < inimigos.Length; i++)
 					{
 						inimigos[i].GetComponent<Enemy>().ReceberDano(dano);
 					}
-
+					animator.SetTrigger("Attack");
+					timeBtwAttack = 1f;
 				}
+			
 			}
 			else
 			{
@@ -98,8 +108,25 @@ public class Player : MonoBehaviour
 		}
 		if (isNadando)
 		{
-
+			if (timeBtwAttack <= 0)
+			{
+				if (Input.GetButtonDown("Fire1"))
+				{
+					GameObject ataque = Instantiate(ataqueAgua, attackPos.position, Quaternion.identity);
+					Rigidbody2D rb = ataque.GetComponent<Rigidbody2D>();
+					if (rb != null)
+					{
+						rb.velocity = Vector2.right * velocidadeAtaqueAgua;
+					}
+					timeBtwAttack = 1.5f;
+				}
+				
+			} else
+			{
+				timeBtwAttack -= Time.deltaTime;
+			}
 		}
+
 	}
 
 	private void OnDrawGizmosSelected()
@@ -120,16 +147,42 @@ public class Player : MonoBehaviour
 	private void Movimentar()
 	{
 		// Movimento horizontal
-		float movimento = Input.GetAxisRaw("Horizontal");
+
+		float movimento = Movimentacao();
 		rb.velocity = new Vector2(movimento * velocidadeMovimento, rb.velocity.y);
 		// Animação andando/parado e pulando/caindo
 		animator.SetFloat("XVelocity", Math.Abs(rb.velocity.x));
 		spriteRenderer.flipX = movimento < 0;
 		animator.SetFloat("YVelocity", rb.velocity.y);
 	}
-	private void Pular()
+
+	public float Movimentacao()
 	{
-		// Usando AddForce para pular
+        if (forceUseMobileInput || Application.isMobilePlatform)
+        {
+			return joystick.xAxis.value;
+        } else
+		{
+			return Input.GetAxisRaw("Horizontal");
+		}
+
+    }
+	public void Pular()
+	{
+		if (!isGrounded)
+		{
+			return;
+		}
+		if (isNadando)
+		{
+			// Adicionar força para simular "nado"
+			rb.velocity = new Vector2(rb.velocity.x, forçaDoPulo/5);
+
+			// Simular gravidade reduzida (flutuação)
+			rb.velocity += new Vector2(0, -Physics2D.gravity.y * resistênciaNaÁgua * Time.fixedDeltaTime);
+		}
+
+
 		rb.AddForce(new Vector2(0f, forçaDoPulo), ForceMode2D.Impulse);
 	}
 
@@ -145,7 +198,7 @@ public class Player : MonoBehaviour
 				coracoes[i].SetActive(false);
 				break;
 			}
-			
+
 		}
 
 		if (hpAtual <= 0)
@@ -235,10 +288,19 @@ public class Player : MonoBehaviour
 		{
 			MudarDeFase();
 		}
-		
+
 		if (collision.gameObject.CompareTag("Inimigo"))
 		{
 			TomarDano(1);
+		}
+		if (collision.gameObject.CompareTag("Ataque"))
+		{
+			TomarDano(1);
+			Destroy(collision.gameObject);
+		}
+		if (collision.gameObject.CompareTag("Fim"))
+		{
+			SceneManager.LoadScene("Tela inicial");
 		}
 	}
 
@@ -255,8 +317,8 @@ public class Player : MonoBehaviour
 			TomarDano(1);
 			transform.position = posicaoAtual;
 		}
-		
+
 	}
 
-	
+
 }

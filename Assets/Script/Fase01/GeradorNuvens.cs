@@ -8,8 +8,6 @@ public class GeradorNuvens : MonoBehaviour
     [SerializeField] private GameObject[] nuvens;
     private float intervaloGeracao = 2.5f;
     [SerializeField] private bool destruidor = false; // verificando se o gameobject deve ser o destruidor ou o gerador
-
-    
     void Start()
     {
         

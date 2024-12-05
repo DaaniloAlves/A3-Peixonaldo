@@ -198,9 +198,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocidade: 1.3
-  vida: 10
-  bloodEffect: {fileID: 481158947469965457, guid: 456520faa5fd6994ba8c378794be7f22, type: 3}
+  vida: 3
   startDazedTime: 0.6
+  spriteRenderer: {fileID: 0}
+  corDano: {r: 1, g: 0, b: 0, a: 1}
+  corNormal: {r: 1, g: 1, b: 1, a: 1}
+  duracaoPiscar: 0.2
   posicao1: {fileID: 3228284856702060671}
   posicao2: {fileID: 1645693766684629555}
   targetPos: {x: 0, y: 0}
@@ -263,7 +266,7 @@ Transform:
   - {fileID: 3228284856702060671}
   - {fileID: 1645693766684629555}
   m_Father: {fileID: 0}
-  m_RootOrder: 82
+  m_RootOrder: 79
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7876540135020749377
 GameObject:

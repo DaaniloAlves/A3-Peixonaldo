@@ -169,7 +169,7 @@ public class Player : MonoBehaviour
     }
 	public void Pular()
 	{
-		if (!isGrounded)
+		if (!isGrounded && !isNadando)
 		{
 			return;
 		}

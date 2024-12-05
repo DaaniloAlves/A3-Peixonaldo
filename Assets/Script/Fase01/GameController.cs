@@ -17,6 +17,7 @@ public class GameController : MonoBehaviour
 	[SerializeField] private GameObject pause;
 	[SerializeField] private GameObject boss;
 	private bool bossInstanciado = false;
+	private bool gaivotaMorta = false;
 
 	void Start()
 	{
@@ -38,6 +39,11 @@ public class GameController : MonoBehaviour
 		}
 		else if (player.transform.position.y > -10 && player.getIsNadando())
 		{
+			if (!gaivotaMorta)
+			{
+				Destroy(gaivota);
+				gaivotaMorta=true;
+			}
 			myCamera.position = new Vector3(player.transform.position.x, -10, -10); // fazendo a camera seguir o player, passando o transform.position
 		} else if (player.transform.position.y < 0 && !player.getIsNadando())
 		{

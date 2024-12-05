@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class GaviotaController : Enemy
@@ -8,6 +9,7 @@ public class GaviotaController : Enemy
 	private Rigidbody2D rb;
 	[SerializeField] private GameObject ataque; // cocô normal
 	[SerializeField] private GameObject ataque02; // toletão
+	[SerializeField] private GameObject player;
 	private float controleTempo = 2f; // intervalo entre os ataques
 	private Transform transformAtaque; // Transform que indica onde o ataque deve ser instanciado
 	[SerializeField] private Transform myCamera; // pegando a camera para definir os limites abaixo
@@ -29,7 +31,7 @@ public class GaviotaController : Enemy
 	void Update()
 	{
 		atacar();
-		
+	
 	}
 
 	// método com lógica que faz a gaivota atacar

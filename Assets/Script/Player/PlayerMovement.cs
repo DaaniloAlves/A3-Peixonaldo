@@ -39,7 +39,7 @@ public class Player : MonoBehaviour
 
 	private void Start()
 	{
-		timeBtwAttack = 1;
+		timeBtwAttack = 0.5f;
 		dano = 1;
 		isNadando = false;
 		posicaoAtual = transform.position;
@@ -97,7 +97,7 @@ public class Player : MonoBehaviour
 						inimigos[i].GetComponent<Enemy>().ReceberDano(dano);
 					}
 					animator.SetTrigger("Attack");
-					timeBtwAttack = 1f;
+					timeBtwAttack = 0.5f;
 				}
 			
 			}
@@ -118,7 +118,7 @@ public class Player : MonoBehaviour
 					{
 						rb.velocity = Vector2.right * velocidadeAtaqueAgua;
 					}
-					timeBtwAttack = 1.5f;
+					timeBtwAttack = 0.7f;
 				}
 				
 			} else
